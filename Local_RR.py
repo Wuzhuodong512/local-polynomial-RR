@@ -73,7 +73,7 @@ def RR_special_x(z_0, Z, h):
     return beta[0]
 
 @jit
-def RR_normal_x(z_0, Z, h):
+def RR_regular_x(z_0, Z, h):
     a_0 = z_0[0]
     x_0 = z_0[1]
     A = Z[:, 0] - a_0
