@@ -41,7 +41,7 @@ def RR_special(z_0, Z, h):
     return beta[0]
 
 @jit
-def RR_normal(z_0, Z, h):
+def RR_regular(z_0, Z, h):
     a_0 = z_0[0]
     A = Z[:, 0] - a_0
     K = vmap(partial(k, z_2=z_0, h=h))(Z)
@@ -103,20 +103,20 @@ h = 0.5
 alpha_true = vmap(alpha_0, (0, 0))(A, X)
 alpha_special = vmap(RR_special, (0, None, None))(Z, Z, h)
 alpha_special_x = vmap(RR_special_x, (0, None, None))(Z, Z, h)
-alpha_normal = vmap(RR_normal, (0, None, None))(Z, Z, h)
-alpha_normal_x = vmap(RR_normal_x, (0, None, None))(Z, Z, h)
+alpha_regular = vmap(RR_regular, (0, None, None))(Z, Z, h)
+alpha_regular_x = vmap(RR_regular_x, (0, None, None))(Z, Z, h)
 
 MSE_special = jnp.mean((alpha_special - alpha_true)**2)
-MSE_normal = jnp.mean((alpha_normal - alpha_true)**2)
+MSE_regular = jnp.mean((alpha_regular - alpha_true)**2)
 MSE_special_x = jnp.mean((alpha_special_x - alpha_true)**2)
-MSE_normal_x = jnp.mean((alpha_normal_x - alpha_true)**2)
+MSE_regular_x = jnp.mean((alpha_regular_x - alpha_true)**2)
 MSE_diff = jnp.mean((alpha_special - alpha_normal)**2)
 MSE_diff_x = jnp.mean((alpha_special_x - alpha_normal_x)**2)
 
 print("MSE_special", MSE_special)
-print("MSE_normal", MSE_normal)
+print("MSE_regular", MSE_regular)
 print("MSE_special_x", MSE_special_x)
-print("MSE_normal_x", MSE_normal_x)
+print("MSE_regular_x", MSE_regular_x)
 print("MSE_diff", MSE_diff)
 print("MSE_diff_x", MSE_diff_x)
 print("var_alpha" , jnp.var(alpha_true))
