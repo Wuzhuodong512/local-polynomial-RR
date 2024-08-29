@@ -20,18 +20,16 @@ def data_generate(n, key):
     
     return jnp.array(Z)
 
-@jit
 def p_0(a, x):
     mean1 = jnp.array([0, 0])
-    cov1 = jnp.array([[1,0.5], [0.5, 1]])
+    cov1 = jnp.array([[1,0.5], [0.5,1]])
     mean2 = jnp.array([2, 2])
-    cov2 = jnp.array([[1,-0.5], [-0.5, 1]])
+    cov2 = jnp.array([[1,-0.5], [-0.5,1]])
     p1 = multivariate_normal.pdf(jnp.array([a, x]), mean=mean1, cov = cov1)
     p2 = multivariate_normal.pdf(jnp.array([a, x]), mean=mean2, cov = cov2)
     p = 0.5 * p1 + 0.5 * p2
     return p
 
-@jit
 def alpha_0(a, x):
     dp_da = grad(p_0, argnums=0)(a, x)
     return -dp_da / p_0(a, x)
@@ -55,10 +53,10 @@ def RR_kd(z, Z, h):
 
 
 n = 2000
-h = 0.4
+h = 0.3
 
-m = 10
-key = random.PRNGKey(1)
+m = 100
+key = random.PRNGKey(0)
 keys = random.split(key, m)
 MSE = np.zeros(m)
 
