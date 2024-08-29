@@ -20,7 +20,7 @@ def data_generate(n, key):
     
     return jnp.array(Z)
 
-@jit
+
 def p_0(a, x):
     mean1 = jnp.array([0, 0])
     cov1 = jnp.array([[1,0.5], [0.5, 1]])
@@ -31,7 +31,7 @@ def p_0(a, x):
     p = 0.5 * p1 + 0.5 * p2
     return p
 
-@jit
+
 def alpha_0(a, x):
     dp_da = grad(p_0, argnums=0)(a, x)
     return -dp_da / p_0(a, x)
@@ -70,8 +70,8 @@ def RR_regular_x(z_0, Z, h):
 n = 2000
 h = 0.7
 
-m = 10
-key = random.PRNGKey(1)
+m = 100
+key = random.PRNGKey(0)
 keys = random.split(key, m)
 MSE = np.zeros(m)
 
