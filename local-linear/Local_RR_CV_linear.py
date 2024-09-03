@@ -111,7 +111,7 @@ m = 20
 key = random.PRNGKey(1)
 keys = random.split(key, m)
 MSE = np.zeros(m)
-bandwidth = jnp.linspace(0.5, 2, 16)
+bandwidth = np.linspace(0.5, 2, 16)
 
 for i in range(m):
     Z = data_generate(n, keys[i])
