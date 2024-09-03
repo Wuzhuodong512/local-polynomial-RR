@@ -10,7 +10,7 @@ from sklearn.model_selection import KFold
 def data_generate(n, key):
     mean1 = jnp.array([0, 0, 0, 0, 0, 0])
     cov1 = jnp.array([[1, 0.5, 0, 0.2, 0, 0], [0.5, 1, 0.5, 0, 0, 0], [0, 0.5, 1, 0.5, 0 ,0], [0.2, 0, 0.5, 1, 0, 0], [0, 0, 0, 0, 1, 0.5], [0, 0, 0, 0, 0.5, 1]])
-    mean2 = jnp.array([1, 1, 1, 1, 1, 1])
+    mean2 = jnp.array([2, 2, 2, 2, 2, 2])
     cov2 = jnp.array([[1,-0.5, 0.2, 0, 0, 0], [-0.5, 1, -0.5, 0, 0, 0], [0.2, -0.5, 1, -0.5, 0, 0], [0, 0, -0.5, 1, 0, 0], [0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 1]])
     Z1 = random.multivariate_normal(key, mean1, cov1, (n,))
     Z2 = random.multivariate_normal(key, mean2, cov2, (n,))
@@ -25,7 +25,7 @@ def data_generate(n, key):
 def p_0(a, x):
     mean1 = jnp.array([0, 0, 0, 0, 0, 0])
     cov1 = jnp.array([[1, 0.5, 0, 0.2, 0, 0], [0.5, 1, 0.5, 0, 0, 0], [0, 0.5, 1, 0.5, 0 ,0], [0.2, 0, 0.5, 1, 0, 0], [0, 0, 0, 0, 1, 0.5], [0, 0, 0, 0, 0.5, 1]])
-    mean2 = jnp.array([1, 1, 1, 1, 1, 1])
+    mean2 = jnp.array([2, 2, 2, 2, 2, 2])
     cov2 = jnp.array([[1,-0.5, 0.2, 0, 0, 0], [-0.5, 1, -0.5, 0, 0, 0], [0.2, -0.5, 1, -0.5, 0, 0], [0, 0, -0.5, 1, 0, 0], [0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 1]])
     p1 = multivariate_normal.pdf(jnp.concatenate([jnp.array([a]), x]), mean=mean1, cov = cov1)
     p2 = multivariate_normal.pdf(jnp.concatenate([jnp.array([a]), x]), mean=mean2, cov = cov2)
